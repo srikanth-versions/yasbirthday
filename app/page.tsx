@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { startTransition, useState, useEffect } from "react";
 import { HeroSection } from "@/components/HeroSection";
 import { BirthdayExperience } from "@/components/BirthdayExperience";
 import { MusicController } from "@/components/MusicController";
@@ -8,7 +8,7 @@ import { NameModal } from "@/components/NameModal";
 import { romanticAudio } from "@/components/AudioEngine";
 
 export default function Home() {
-  const [herName, setHerName] = useState("YASMINI");
+  const [herName, setHerName] = useState("Yasmin");
   const [showExperience, setShowExperience] = useState(false);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [isPlayingMusic, setIsPlayingMusic] = useState(false);
@@ -17,12 +17,12 @@ export default function Home() {
   // Load custom name from localStorage & Auto-play music on enter/first interaction
   useEffect(() => {
     const savedName = localStorage.getItem("celeste_her_name");
-    if (savedName?.toUpperCase() === "SWATHI") {
-      localStorage.setItem("celeste_her_name", "YASMINI");
+    if (savedName?.toUpperCase() === "SWATHI" || savedName?.toUpperCase() === "YASMINI") {
+      localStorage.setItem("celeste_her_name", "Yasmin");
     } else if (savedName) {
-      setHerName(savedName);
+      startTransition(() => setHerName(savedName));
     } else {
-      localStorage.setItem("celeste_her_name", "YASMINI");
+      localStorage.setItem("celeste_her_name", "Yasmin");
     }
 
     // Auto-start music attempt on enter
